@@ -1,4 +1,5 @@
-import { FETCH_POSTS, FETCH_POST } from "../actions/index";
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from "../actions/index";
+import _ from "lodash";
 
 export default function(state = {}, action) {
   switch (action.type) {
@@ -16,6 +17,10 @@ export default function(state = {}, action) {
       let obj = {};
       action.payload.data.forEach(item => (obj[item.id] = item));
       return obj;
+
+    case DELETE_POST:
+      return _.omit(state, action.payload);
+    //return state.filter(item => item.id !== action.payload);
 
     default:
       return state;
